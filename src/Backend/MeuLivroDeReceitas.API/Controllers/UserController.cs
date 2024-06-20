@@ -1,3 +1,4 @@
+using MeuLivroDeReceitas.Application.UseCases.User.Register;
 using MeuLivroDeReceitas.Communication.Requests;
 using MeuLivroDeReceitas.Communication.Responses;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -13,6 +14,9 @@ public class UserController : ControllerBase
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
     public IActionResult Register(RequestRegisterUserJson request)
     {
-        return Ok();
+        var useCase = new RegisterUserUseCase();
+        var result = useCase.Execute(request);
+
+        return Created(String.Empty, result);
     }
 }
